@@ -1,0 +1,105 @@
+@import '_mixins.scss';
+
+.ant-layout-content {
+  z-index: 10;
+  position: relative;
+}
+.align-helper {
+  height: 100%;
+  align-content: center;
+  .big-wrapper {
+    justify-content: center;
+    margin: 0 auto;
+    background: #cccccc24;
+    padding: 34px;
+    border-radius: 18px;
+    .date-picker-wrapper {
+      justify-content: center;
+    }
+
+    .total-wrapper {
+      margin-top: 100px;
+    }
+  }
+}
+
+.panel {
+  font-size: 1rem;
+  .panel-heading {
+    background-color: #f5f5f5;
+    border-radius: 4px 4px 0 0;
+    color: #363636;
+    font-size: 1.25em;
+    font-weight: 300;
+    line-height: 1.25;
+    padding: 0.5em 0.75em;
+    margin-bottom: 0;
+  }
+  .panel-block {
+    align-items: center;
+    color: #363636;
+    display: flex;
+    justify-content: flex-start;
+    padding: 0.5em 0.75em;
+    border-bottom: 1px solid #dbdbdb;
+    border-left: 1px solid #dbdbdb;
+    border-right: 1px solid #dbdbdb;
+    p {
+      margin-bottom: 0;
+    }
+  }
+}
+.ant-layout {
+  height: 100vh;
+  .ant-layout-sider {
+    z-index: 10;
+    .ant-menu-inline-collapsed {
+      width: 80px;
+      display: none;
+    }
+
+    &.ant-layout-sider-collapsed {
+      display: none;
+    }
+  }
+}
+
+.country-select-outlined {
+  & > div {
+    padding: 5px 0;
+    border-radius: 5px;
+    background: white;
+    &:focus {
+      border-radius: 5px;
+      background: #ffffffb5;
+    }
+  }
+
+  .MuiOutlinedInput-notchedOutline {
+    visibility: hidden;
+  }
+}
+
+.breadcrumb-nav {
+    position: absolute;
+    margin: 10px 0 0 10px;
+    h1 {
+        font-size: 14px;
+    }
+}
+
+footer {
+    background: #000;
+    color: #fff;
+    padding: 50px 20px;
+    vertical-align: middle;
+    position: relative;
+    height: 100%;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 0;
+    @include respond-above(sm) {
+        padding: 50px 100px;
+      }
+  }
