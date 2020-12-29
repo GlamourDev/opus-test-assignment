@@ -27,7 +27,8 @@ const Languages = () => {
 
   useEffect(() => {
     setCountry(state.currentLng.slice(0, 2));
-  });
+  }, [state.currentLng]);
+  
   const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
     setCountry(event.target.value as string);
     dispatch({ type: "SET_LANG", payload: event.target.value });
@@ -41,7 +42,6 @@ const Languages = () => {
           value={country}
           variant="outlined"
           onChange={handleChange}
-          label="Country"
         >
           <MenuItem value="en">Inglise</MenuItem>
           <MenuItem value="et">Eesti</MenuItem>

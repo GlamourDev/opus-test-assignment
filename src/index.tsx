@@ -5,7 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import Store, {Context} from "./store";
+import Store from "./store";
 
 ReactDOM.render(
   <React.StrictMode>

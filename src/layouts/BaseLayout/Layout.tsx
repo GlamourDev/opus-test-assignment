@@ -1,5 +1,4 @@
-import React, { PureComponent } from "react";
-
+import React, { Component } from "react";
 import { Layout } from "antd";
 import { Header } from "../Header";
 import { BaseMenu } from "../Menu";
@@ -8,12 +7,11 @@ import styles from "./index.module.scss";
 import TimeMeasure from "../../components/TimeMeasure";
 import { BaseLayoutState } from "./index.interface";
 import FooterPage from "../../layouts/Footer";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
 import HeaderTitle from "../../components/Header.js";
 
 const { Sider, Content } = Layout;
 
-class PageLayout extends PureComponent<BaseLayoutState> {
+class PageLayout extends Component<BaseLayoutState> {
   state = {
     collapsed: false,
   };

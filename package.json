@@ -1,6 +1,7 @@
 {
   "name": "opus-test-assignment",
   "version": "0.1.0",
+  "homepage": "https://dsgnbyhl.com/opustest",
   "private": true,
   "dependencies": {
     "@babel/core": "7.12.3",

@@ -1,7 +1,5 @@
-import React, { useEffect, useContext } from "react";
-import "./App.css";
+import { useEffect, useContext } from "react";
 import "./styles/styles.scss";
-
 import { getBrowserLang } from "./helpers";
 import PageLayout from "./layouts/BaseLayout/Layout";
 import { Context } from "./store";
@@ -13,8 +11,8 @@ const App = () => {
     console.log(state);
     // Get browser locale
     dispatch({ type: "SET_LANG", payload: getBrowserLang() });
-    //setCount(getBrowserLang())
-    console.log(getBrowserLang());
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

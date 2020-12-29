@@ -7,10 +7,8 @@ import ltLocale from "date-fns/locale/lt";
 import ArrowRightAltIcon from '@material-ui/icons/ArrowRightAlt';
 import React, {
   useState,
-  useCallback,
   useContext,
   useEffect,
-  Component,
 } from "react";
 import { TextField } from "@material-ui/core";
 import DateRangePicker, { DateRange } from "@material-ui/lab/DateRangePicker";
@@ -29,81 +27,79 @@ const localeMap = {
   lt: ltLocale,
 };
 
-const DateFnsLocalizationExample = () => {
+const getConvertedValue = (start: any, end: any, localeStr: any) => {
+    const resultMonth = formatDistanceStrict(end, start, {
+      unit: "month",
+      locale: localeStr,
+    });
+    const resultDay = formatDistanceStrict(end, start, {
+      unit: "day",
+      locale: localeStr,
+    });
+    const resultHour = formatDistanceStrict(end, start, {
+      unit: "hour",
+      locale: localeStr,
+    });
+    const resultMin = formatDistanceStrict(end, start, {
+      unit: "minute",
+      locale: localeStr,
+    });
+
+    //console.log(resultMin); // => 14400 minutit
+
+    const result = (s: string): any =>
+      (s.match(/\d+/g) || []).find((n) => parseInt(n));
+
+    const getCombinedValues = () => {
+      let min = parseInt(result(resultMin));
+      let mo = parseInt(result(resultMonth));
+      let day = parseInt(result(resultDay));
+      let hr = parseInt(result(resultHour));
+      return formatDuration(
+        { months: mo ? mo : 0, days: day, hours: hr, minutes: min },
+        { delimiter: ", ", zero: true, locale: localeStr }
+      );
+    };
+
+    return (
+      <>
+        <div className="panel">
+          <p className="panel-heading">
+            <span>
+              <AccessTimeIcon />
+            </span>
+            {getCombinedValues()}
+          </p>
+          <div className="panel-block">
+            <p>{resultMonth}</p>
+          </div>
+          <div className="panel-block">
+            <p>{resultDay}</p>
+          </div>
+          <div className="panel-block">
+            <p>{resultHour}</p>
+          </div>
+          <div className="panel-block">
+            <p>{resultMin}</p>
+          </div>
+        </div>
+      </>
+    );
+};
+
+const DateTimeWrapper = () => {
   // @ts-ignore
-  const [state, dispatch] = useContext(Context);
+  const [state] = useContext(Context);
   const [locale, setLocale] = useState("");
 
   useEffect(() => {
     setLocale(state.currentLng.slice(0, 2));
-  })
+  }, [state.currentLng])
   //console.log(locale)
   const [value, setValue] = useState<DateRange<Date | null>>([null, null]);
 
   // @ts-ignore
   let localeStr: any = localeMap[locale];
-
-  const getConvertedValue = (start: any, end: any) => {
-    if (end) {
-      const resultMonth = formatDistanceStrict(end, start, {
-        unit: "month",
-        locale: localeStr,
-      });
-      const resultDay = formatDistanceStrict(end, start, {
-        unit: "day",
-        locale: localeStr,
-      });
-      const resultHour = formatDistanceStrict(end, start, {
-        unit: "hour",
-        locale: localeStr,
-      });
-      const resultMin = formatDistanceStrict(end, start, {
-        unit: "minute",
-        locale: localeStr,
-      });
-
-      //console.log(resultMin); // => 14400 minutit
-
-      const result = (s: string): any =>
-        (s.match(/\d+/g) || []).find((n) => parseInt(n));
-
-      const getCombinedValues = () => {
-        let min = parseInt(result(resultMin));
-        let mo = parseInt(result(resultMonth));
-        let day = parseInt(result(resultDay));
-        let hr = parseInt(result(resultHour));
-        return formatDuration(
-          { months: mo ? mo : 0, days: day, hours: hr, minutes: min },
-          { delimiter: ", ", zero: true, locale: localeStr }
-        );
-      };
-
-      return (
-        <>
-          <div className="panel">
-            <p className="panel-heading">
-              <span>
-                <AccessTimeIcon />
-              </span>{" "}
-              {getCombinedValues()}
-            </p>
-            <div className="panel-block">
-              <p>{resultMonth}</p>
-            </div>
-            <div className="panel-block">
-              <p>{resultDay}</p>
-            </div>
-            <div className="panel-block">
-              <p>{resultHour}</p>
-            </div>
-            <div className="panel-block">
-              <p>{resultMin}</p>
-            </div>
-          </div>
-        </>
-      );
-    }
-  };
 
   return (
     <>
@@ -122,8 +118,7 @@ const DateFnsLocalizationExample = () => {
                   <TextField {...startProps} variant="standard" />
                 </div>
                 <DateRangeDelimiter style={{ alignSelf: 'center'}}>
-                  {" "}
-                  <ArrowRightAltIcon />{" "}
+                  <ArrowRightAltIcon />
                 </DateRangeDelimiter>
                 <div className="col-md-6">
                   <TextField {...endProps} variant="standard" />
@@ -135,7 +130,7 @@ const DateFnsLocalizationExample = () => {
       </div>
       <div className="row justify-content-center total-wrapper">
         <div>
-          {value[0] && value[1] && getConvertedValue(value[0], value[1])}
+          {value[0] && value[1] && getConvertedValue(value[0], value[1], localeStr)}
         </div>
       </div>
       </div>
@@ -144,4 +139,4 @@ const DateFnsLocalizationExample = () => {
   );
 };
 
-export default DateFnsLocalizationExample;
+export default DateTimeWrapper;
